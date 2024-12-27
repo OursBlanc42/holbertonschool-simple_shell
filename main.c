@@ -5,7 +5,7 @@
 
 /**
  * main - Entry point
- * Description : Mini Simple Shell
+ * Description : Simple shell
  * Return: Nothing (waiting to ctrl + c (abort))
  */
 
@@ -60,7 +60,7 @@ play_again:
 		/* Check and execute command if no error */
 		if (execve(argv[0], argv, NULL) == -1)
 		{
-			printf("(╯°□°）╯︵ ┻━┻ (Error execve)\n");
+			printf("1: %s: not found\n",argv[0]);
 			goto play_again;
 		}
 	}
