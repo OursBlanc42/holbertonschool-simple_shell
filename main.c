@@ -15,7 +15,7 @@
 * Return: Always 0 (waiting abort (ctrl+c) or EOF (ctrl+d)
 */
 
-int main(void)
+int main(int ac, char **av, char **env)
 {
 	char *string = NULL;
 	size_t buffer_size = 0;
@@ -24,6 +24,12 @@ int main(void)
 	int index = 0;
 	char *child_argv[2];
 
+	if (ac != 1)
+	{
+		printf("Please no argument\n");
+		return (0);
+	}
+	
 	while (1)
 	{
 		/* Waiting for input */
@@ -58,9 +64,9 @@ int main(void)
 		{
 			child_argv[0] = string;
 			child_argv[1] = NULL;
-			if (execve(child_argv[0], child_argv, environ) == -1)
+			if (execve(child_argv[0], child_argv, env) == -1)
 			{
-				printf("1: %s: not found\n", child_argv[0]);
+				printf("%s: 1: %s: not found\n", av[0], child_argv[0]);
 				free(string);
 				exit(EXIT_FAILURE);
 			}
@@ -77,5 +83,3 @@ int main(void)
 	free(string);
 	return (0);
 }
-
-
