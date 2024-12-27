@@ -59,7 +59,7 @@ int main(void)
 			if (execve(argv[0], argv, NULL) == -1)
 			{
 				printf("1: %s: not found\n", argv[0]);
-				continue;
+				exit(EXIT_FAILURE);
 			}
 		}
 
