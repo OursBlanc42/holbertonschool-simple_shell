@@ -32,10 +32,11 @@ int main(int ac, char **av, char **env)
 	
 	while (1)
 	{
-		/* Waiting for input */
-		printf("( ・‿・) > ");
+		/* Show prompt only if are in terminal */
+		if (isatty(STDIN_FILENO) == 1)
+			printf("( ・‿・) > ");
 
-		/* Read the input and check if succeed */
+		/* Waiting and read the input and check if succeed */
 		readed = getline(&string, &buffer_size, stdin);
 		if (readed == -1)
 		{
