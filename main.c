@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <sys/wait.h>
+#include "tamagoshell.h"
 
 /**
 * main - Entry point of the simple shell
@@ -57,7 +58,7 @@ int main(void)
 		{
 			child_argv[0] = string;
 			child_argv[1] = NULL;
-			if (execve(child_argv[0], child_argv, NULL) == -1)
+			if (execve(child_argv[0], child_argv, environ) == -1)
 			{
 				printf("1: %s: not found\n", child_argv[0]);
 				free(string);
