@@ -21,8 +21,7 @@ int main(void)
 	ssize_t readed;
 	pid_t child_pid;
 	int index = 0;
-	char *argv[2];
-	argv[1] = NULL;
+	char *child_argv[2];
 
 	while (1)
 	{
@@ -49,25 +48,32 @@ int main(void)
 		if (child_pid == -1)
 		{
 			printf("(╯°□°）╯︵ ┻━┻ (Error fork)\n");
+			free(string);
 			continue;
 		}
 
 		/* Execute the command in child process */
 		if (child_pid == 0)
 		{
-			argv[0] = string;
-			if (execve(argv[0], argv, NULL) == -1)
+			child_argv[0] = string;
+			child_argv[1] = NULL;
+			if (execve(child_argv[0], child_argv, NULL) == -1)
 			{
-				printf("1: %s: not found\n", argv[0]);
+				printf("1: %s: not found\n", child_argv[0]);
+				free(string);
 				exit(EXIT_FAILURE);
 			}
 		}
 
 		/* waiting for child finish execution */
 		else
+		{
 			wait(NULL);
+			free(string);
+			string = NULL;
+		}
 	}
-
+	free(string);
 	return (0);
 }
 
