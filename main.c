@@ -11,7 +11,7 @@
 *	Clean string (remove \n character )
 *	Fork current process to child process and execute the command
 *	Waiting child execution and display a prompt again
-* Return: Nothing (waiting abort (ctrl+c) or EOF (ctrl+d)
+* Return: Always 0 (waiting abort (ctrl+c) or EOF (ctrl+d)
 */
 
 int main(void)
@@ -21,6 +21,8 @@ int main(void)
 	ssize_t readed;
 	pid_t child_pid;
 	int index = 0;
+	char *argv[2];
+	argv[1] = NULL;
 
 	while (1)
 	{
@@ -53,7 +55,7 @@ int main(void)
 		/* Execute the command in child process */
 		if (child_pid == 0)
 		{
-			char *argv[] = {string, NULL };
+			argv[0] = string;
 			if (execve(argv[0], argv, NULL) == -1)
 			{
 				printf("1: %s: not found\n", argv[0]);
@@ -65,6 +67,8 @@ int main(void)
 		else
 			wait(NULL);
 	}
+
+	return (0);
 }
 
 
