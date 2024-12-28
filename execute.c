@@ -5,7 +5,7 @@
 #include <sys/wait.h>
 
 /**
- * exectute - execute the command line
+ * execute - execute the command line
  *Description:
  *	fork the current process
  *	execute the command line in child process
