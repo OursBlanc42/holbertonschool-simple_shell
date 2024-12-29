@@ -46,7 +46,6 @@ int execute(char *string, char *av)
 	else
 	{
 		wait(NULL);
-		free(string);
 		string = NULL;
 	}
 	return (0);

@@ -13,7 +13,6 @@
 *	Waiting child execution and display a prompt again
 *@ac: number of argument
 *@av: array of argument
-*@env: environment local
 * Return: Always 0 (waiting abort (ctrl+c) or EOF (ctrl+d)
 */
 
