@@ -11,7 +11,6 @@
  *	execute the command line in child process
  *	and wait the end of execve
  *@string: string with the command line
- *@env: variable environment
  *@av: argument with the name of shell
  *Return: return 0 if sucess or 1 if fail
  */
