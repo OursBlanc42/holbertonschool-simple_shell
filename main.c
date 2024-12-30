@@ -6,11 +6,11 @@
 /**
 * main - Entry point of the simple shell
 * Description :
+*	Check arguments
 *	Display a prompt
 *	Read user input
-*	Clean string (remove \n character )
-*	Fork current process to child process and execute the command
-*	Waiting child execution and display a prompt again
+*	Call subfunction to clean string (remove \n character )
+*	Call subfunction to execute the command
 *@ac: number of argument
 *@av: array of argument
 * Return: Always 0 (waiting abort (ctrl+c) or EOF (ctrl+d)
@@ -45,6 +45,7 @@ int main(int ac, char **av)
 		/* clean string (remove last \n char) */
 		string = remove_newline(string);
 
+		/* call subfunction to execute command */
 		if (execute(string, *av) == 1)
 			continue;
 	}
