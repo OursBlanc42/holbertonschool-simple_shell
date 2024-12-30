@@ -7,7 +7,9 @@ Tamago-shell is a simple shell developed as an end-of-term project during the fi
 ---
 
 ## Demo
-🚧 UNDER CONSTRUCTION 🚧
+Tamago-shell in action :
+![Tamago-shell Screenshot](docs/images/screenshot.png)
+
 
 ---
 
@@ -28,9 +30,18 @@ Tamago-shell is a simple shell with an added feature: it displays ASCII emoji he
 - **Tools:** 
     - GCC 11.4.0  (compilation flag : `-Wall -Werror -Wextra -pedantic -std=gnu89)
     - Valgrind 3.18.1
+    - Draw.io for flowcharts
 
 ### Installing
-🚧 UNDER CONSTRUCTION 🚧
+ 1. Clone / download the repository
+ 2. Compile the project
+```bash
+gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
+```
+3. Run the shell
+4. Type stuff to see the tamagochi heads in action!
+
+
 
 ### Usage
 🚧 UNDER CONSTRUCTION 🚧
@@ -38,12 +49,13 @@ Tamago-shell is a simple shell with an added feature: it displays ASCII emoji he
 ---
 
 ## Flowcharts
-🚧 UNDER CONSTRUCTION 🚧
+![Tamago-shell v0.1 Flowchart](docs/flowcharts/tamagoshell_v0-1.jpg)
 
 ---
 
 ## Version
-🚧 UNDER CONSTRUCTION 🚧
+Current version: 0.1
+
 
 ---
 
