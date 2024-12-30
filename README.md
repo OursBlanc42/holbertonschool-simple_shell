@@ -20,7 +20,6 @@ Tamago-shell is a simple shell with an added feature: it displays ASCII emoji he
 ---
 
 ## Getting Started
-🚧 UNDER CONSTRUCTION 🚧
 
 ### System & Tools
 - **Operating System:** Tested on:
@@ -41,10 +40,6 @@ gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
 3. Run the shell
 4. Type stuff to see the tamagochi heads in action!
 
-
-
-### Usage
-🚧 UNDER CONSTRUCTION 🚧
 
 ---
 
