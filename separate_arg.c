@@ -4,9 +4,10 @@
 #include <stdio.h>
 
 /**
- * separate_arg - separate the different arg in the array for norme 89
- *@string: the string for separate
- *Return: return a pointer of array or NULL if fail
+ * separate_arg - splits a string into an array of arguments,
+ * formatted to comply with Norme 89 standards
+ * @string: the input string to be split into arguemnts
+ * Return: return a pointer to an array of strings (arguments) or NULL
  */
 char **separate_arg(char *string)
 {
@@ -33,7 +34,7 @@ char **separate_arg(char *string)
 		child_argv = realloc(child_argv, sizeof(char *) * array_length);
 		if (child_argv == NULL)
 			return (NULL);
-
+		
 		/*Alloc memory and copy argument in the array*/
 		child_argv[index] = malloc(sizeof(char) * strlen(argument_temp) + 1);
 		strcpy(child_argv[index], argument_temp);
