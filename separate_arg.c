@@ -12,16 +12,14 @@
 char **separate_arg(char *string)
 {
 	char **child_argv = NULL;
+	char *argument_temp = NULL;
 	const char *separator = " ";
 	int index = 0;
 	int array_length = 0;
-	int string_not_null = 0;
-
-	char *argument_temp = NULL;
 
 	/* check special case */
 	if (string == NULL)
-		return NULL;
+		return (NULL);
 
 	argument_temp = strtok(string, separator);
 	while (argument_temp != NULL)
@@ -31,7 +29,7 @@ char **separate_arg(char *string)
 		child_argv = realloc(child_argv, sizeof(char *) * array_length);
 		if (child_argv == NULL)
 			return (NULL);
-		
+
 		/*Alloc memory and copy argument in the array*/
 		child_argv[index] = malloc(sizeof(char) * strlen(argument_temp) + 1);
 		strcpy(child_argv[index], argument_temp);
