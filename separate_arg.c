@@ -45,6 +45,8 @@ char **separate_arg(char *string)
 	/*Add a NULL at the end for execve*/
 	array_length++;
 	child_argv = realloc(child_argv, sizeof(char *) * array_length);
+		if (child_argv == NULL)
+		return (NULL);
 	child_argv[array_length] = NULL;
 
 	return (child_argv);
