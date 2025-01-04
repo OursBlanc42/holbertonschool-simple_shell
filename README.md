@@ -27,7 +27,7 @@ Tamago-shell is a simple shell with an added feature: it displays ASCII emoji he
     - Windows through WSL
 
 - **Tools:** 
-    - GCC 11.4.0  (compilation flag : `-Wall -Werror -Wextra -pedantic -std=gnu89)
+    - GCC 11.4.0  (compilation flag : `-Wall -Werror -Wextra -pedantic -std=gnu89`)
     - Valgrind 3.18.1
     - Draw.io for flowcharts
 
@@ -44,7 +44,7 @@ gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
 ---
 
 ## Flowcharts
-![Tamago-shell v0.1 Flowchart](docs/flowcharts/tamagoshell_v0-1.jpg)
+![Tamago-shell v0.1 Flowchart](docs/flowcharts/tamagoshell.jpg)
 
 ---
 
