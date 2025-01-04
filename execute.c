@@ -17,35 +17,38 @@
 int execute(char *string, char *av)
 {
 	__pid_t child_pid;
-	char *child_argv[2];
+	char **child_argv = NULL;
+
+	child_argv = separate_arg(string);
+	if (child_argv == NULL || child_argv[0] == NULL)
+	{
+		free(child_argv);
+		return (1);
+	}
 
 	/* fork current process and check if succeed */
 	child_pid = fork();
 	if (child_pid == -1)
 	{
 		printf("(╯°□°）╯︵ ┻━┻ (Error fork)\n");
-		free(string);
+		free_darray(child_argv);
 		return (1);
 	}
 
 	/* Execute the command in child process */
 	if (child_pid == 0)
 	{
-		child_argv[0] = string;
-		child_argv[1] = NULL;
 		if (execve(child_argv[0], child_argv, environ) == -1)
 		{
 			printf("%s: 1: %s: not found\n", av, child_argv[0]);
-			free(string);
+			free_darray(child_argv);
 			exit(EXIT_FAILURE);
 		}
 	}
 
 	/* waiting for child finish execution */
 	else
-	{
 		wait(NULL);
-		string = NULL;
-	}
+	free_darray(child_argv);
 	return (0);
 }

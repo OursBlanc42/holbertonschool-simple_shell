@@ -1,10 +1,18 @@
-.TH man 1 "20 Dec 2024" "1.0" "simple_shell"
-.SH PROLOG
-.SH Name
-.B Tamago-simple_shell
-- a personel command language interpreter
+.TH man 1 "04 Jan 2025" "0.2" "Tamagoshell"
+.SH NAME
+.B Tamagoshell
+- a simple command language interpreter
 .SH SYNOPSYS
-.SH DESCRIPTION
-.SH OPTIONS
-.SH SEE ALSO
+.B hsh
+.I [command] [arguments]
 .SH COPYRIGHT
+This project is licensed under the Attribution-NonCommercial 4.0 International (CC BY-NC 4.0).
+
+Written by Simon R. and Damien J.
+.SH DESCRIPTION
+Tamagoshell is a minimalist shell inspired by tamagotchi heads.
+It is a command-line interpreter executes commands read from user input.
+.SH USAGE
+Run and type a command followed by arguments (if any) and press Enter.
+.SH SEE ALSO
+.B sh
