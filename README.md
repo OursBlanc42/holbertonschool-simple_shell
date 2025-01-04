@@ -49,7 +49,7 @@ gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
 ---
 
 ## Version
-Current version: 0.1
+Current version: 0.2
 
 
 ---
