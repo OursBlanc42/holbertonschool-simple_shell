@@ -68,13 +68,12 @@ char *_which(char *target_program)
 		if (stat(string_concat, &buffer_stat) == 0)
 		{
 			resolved_path = strdup(string_concat);
-			free_list(head_path_list);
 			free(string_concat);
-			break;
+			free_list(head_path_list);
+			return (resolved_path);
 		}
 
 		free(string_concat);	/* Always free useless concatened string after use */
-		string_concat = NULL; /* Reset string_concat to avoid double free*/
 		path_list = path_list->next;	/*next node */
 	}
 
