@@ -1,7 +1,6 @@
 #include <stdlib.h>
-#include <stdio.h>
 #include <string.h>
-#include "_which.h"
+#include <stdio.h>
 
 /**
  * concat_path - Concatenates two strings with a "/" in between
