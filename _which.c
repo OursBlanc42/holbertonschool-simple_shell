@@ -31,18 +31,16 @@ char *_which(char *target_program)
 	/* declare & initialize variable */
 	char *var_env_name = "PATH";
 	char *separator = ":";
-	char *env_path = ___int_size_t_h(var_env_name);
+	char *env_path = _getenv(var_env_name);
 	list_t *head_path_list;
 	list_t *path_list;
 	struct stat buffer_stat;
 	char *string_concat = NULL;
-	int index;
-	int founded = 0;
-	int fail = 0;
 
 	/* Check if the input is a valid path and executable */
 	if (stat(target_program, &buffer_stat) == 0)
 	{
+		printf("WHICH 1 = %s\n",target_program);
 		return (target_program);
 	}
 
@@ -69,6 +67,7 @@ char *_which(char *target_program)
 		if (stat(string_concat, &buffer_stat) == 0)
 		{
 			free_list(head_path_list);
+			printf("WHICH 2 = %s\n",string_concat);
 			return (string_concat);
 		}
 
