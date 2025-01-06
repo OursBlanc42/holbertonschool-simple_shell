@@ -32,6 +32,11 @@ char **separate_arg(char *string)
 
 		/*Alloc memory and copy argument in the array*/
 		child_argv[index] = malloc(sizeof(char) * strlen(argument_temp) + 1);
+		if (child_argv[index] == NULL)
+		{
+			free_darray(child_argv);
+			return (NULL);
+		}
 		strcpy(child_argv[index], argument_temp);
 
 		index++;
