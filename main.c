@@ -32,7 +32,7 @@ int main(int ac, char **av)
 	{
 		/* Show prompt only if are in terminal */
 		if (isatty(STDIN_FILENO) == 1)
-			printf("$ ");
+			printf("( ・‿・) > ");
 
 		/* Waiting and read the input and check if succeed */
 		readed = getline(&string, &buffer_size, stdin);
@@ -40,7 +40,7 @@ int main(int ac, char **av)
 		{
 			if (isatty(STDIN_FILENO) == 1)
 			{
-				printf("\nヾ(• ֊ •) Good bye !\n");
+				printf("\n");
 			}
 			break;
 		}
