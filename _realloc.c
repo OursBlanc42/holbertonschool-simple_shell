@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "main.h"
+#include "tamagoshell.h"
 
 /**
  * min - calculate minimum
