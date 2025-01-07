@@ -11,4 +11,6 @@ char **separate_arg(char *string);
 
 void free_darray(char **darray);
 
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+
 #endif
