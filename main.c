@@ -38,10 +38,6 @@ int main(int ac, char **av)
 		readed = getline(&string, &buffer_size, stdin);
 		if (readed == -1)
 		{
-			if (isatty(STDIN_FILENO) == 1)
-			{
-				printf("\nヾ(• ֊ •) Good bye !\n");
-			}
 			break;
 		}
 
