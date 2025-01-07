@@ -11,11 +11,9 @@
  */
 char **separate_arg(char *string)
 {
-	char **child_argv = NULL;
-	char *argument_temp = NULL;
+	char **child_argv = NULL, *argument_temp = NULL;
 	const char *separator = " ";
-	int index = 0;
-	int array_length = 0;
+	int index = 0, array_length = 0;
 
 	/* check special case */
 	if (string == NULL)
@@ -32,8 +30,12 @@ char **separate_arg(char *string)
 
 		/*Alloc memory and copy argument in the array*/
 		child_argv[index] = malloc(sizeof(char) * strlen(argument_temp) + 1);
+		if (child_argv[index] == NULL)
+		{
+			free_darray(child_argv);
+			return (NULL);
+		}
 		strcpy(child_argv[index], argument_temp);
-
 		index++;
 
 		/* next strtok call */
@@ -48,6 +50,5 @@ char **separate_arg(char *string)
 			return (NULL);
 		}
 	child_argv[array_length] = NULL;
-
 	return (child_argv);
 }

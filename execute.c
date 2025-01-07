@@ -30,7 +30,7 @@ int execute(char *string, char *av)
 	child_pid = fork();
 	if (child_pid == -1)
 	{
-		printf("(╯°□°）╯︵ ┻━┻ (Error fork)\n");
+		perror(av);
 		free_darray(child_argv);
 		return (1);
 	}
@@ -40,7 +40,7 @@ int execute(char *string, char *av)
 	{
 		if (execve(child_argv[0], child_argv, environ) == -1)
 		{
-			printf("%s: 1: %s: not found\n", av, child_argv[0]);
+			perror(av);
 			free_darray(child_argv);
 			exit(EXIT_FAILURE);
 		}
