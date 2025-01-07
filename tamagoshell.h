@@ -28,6 +28,6 @@ void display_env(void);
 
 void built_exit(void);
 
-void *search_built_in(char *search);
+void (*search_built_in(char *search))(void);
 
 #endif
