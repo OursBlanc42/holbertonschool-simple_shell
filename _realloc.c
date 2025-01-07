@@ -5,8 +5,6 @@
 /**
  * min - calculate minimum
  * Description : calculate minimum between 2 int
- * The function could be improved to take into account the == case,
- * but for the purpose we have here: no need.
  * @a: int 1
  * @b: int 2
  * Return: minimum between two values
@@ -70,7 +68,8 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 
 	if (new_ptr == NULL)
 		return (NULL);
-
+	
+	/* Copy data to the smaller size to avoid out of bounds */
 	minima = min(new_size, old_size);
 	for (i = 0; i < minima ; i++)
 		new_ptr[i] = src[i];
