@@ -28,8 +28,8 @@ unsigned int min(unsigned int a, unsigned int b)
  * Algorithm :
  *		No change if new_size == old_size, returns ptr.
  *		If ptr == NULL, behaves like malloc(new_size).
- * 		If new_size == 0 and ptr != NULL, frees ptr and returns NULL.
- * 		Otherwise, allocates new memory like realloc
+ *		If new_size == 0 and ptr != NULL, frees ptr and returns NULL.
+ *		Otherwise, allocates new memory like realloc
  * @ptr: Pointer to the initial allocated memory
  * @old_size: Size of the initial allocated memory
  * @new_size: Size of the new memory to allocate
@@ -48,7 +48,7 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 	/* Case 1: No need to reallocate if sizes are identical */
 	if (new_size == old_size)
 		return (ptr);
-	
+
 	/* Case 2: Equivalent to malloc if ptr is NULL */
 	if (ptr == NULL)
 	{
@@ -68,7 +68,7 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 
 	if (new_ptr == NULL)
 		return (NULL);
-	
+
 	/* Copy data to the smaller size to avoid out of bounds */
 	minima = min(new_size, old_size);
 	for (i = 0; i < minima ; i++)
