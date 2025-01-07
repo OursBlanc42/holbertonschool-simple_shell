@@ -27,7 +27,7 @@ int execute(char *string, char *av)
 	if (child_argv == NULL || child_argv[0] == NULL)
 	{
 		free(child_argv);
-		printf("(╯°□°）╯︵ ┻━┻ (Invalid command)\n");
+		fprintf(stderr, "%s: command not found\n", av);
 		return (1);
 	}
 
@@ -35,7 +35,7 @@ int execute(char *string, char *av)
 	executable_path = _which(child_argv[0]);
 	if (executable_path == NULL)
 	{
-		printf("(╯°□°）╯︵ ┻━┻ (Executable path not found by _which)\n");
+		fprintf(stderr, "%s: %s: command not found\n", av, child_argv[0]);
 		free_darray(child_argv);
 		return (1);
 	}
@@ -44,7 +44,7 @@ int execute(char *string, char *av)
 	child_pid = fork();
 	if (child_pid == -1)
 	{
-		printf("(╯°□°）╯︵ ┻━┻ (Error fork)\n");
+		perror("fork");
 		free_darray(child_argv);
 		free(executable_path);
 		return (1);
