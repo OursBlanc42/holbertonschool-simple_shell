@@ -25,54 +25,57 @@ unsigned int min(unsigned int a, unsigned int b)
 }
 
 /**
- * _realloc - Entry point : reallocates memory
- * Description : reallocates a memory block using malloc and free
- * @ptr: initial allocated memory
- * @old_size: size of the initial allocated memory
- * @new_size: size of the new allocated memory
- * Return:	pointer to the new allocated memory
+ * _realloc - rewrite of realloc
+ * Description : Reallocates memory
+ * Algorithm :
+ *		No change if new_size == old_size, returns ptr.
+ *		If ptr == NULL, behaves like malloc(new_size).
+ * 		If new_size == 0 and ptr != NULL, frees ptr and returns NULL.
+ * 		Otherwise, allocates new memory like realloc
+ * @ptr: Pointer to the initial allocated memory
+ * @old_size: Size of the initial allocated memory
+ * @new_size: Size of the new memory to allocate
+ * Return:
+ * -> Pointer to the newly allocated memory
+ * -> NULL if allocation fails or if new_size is 0 and ptr is not NULL
  */
 
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 {
-	/* declare variable */
 	unsigned int i, minima;
 	char *new_ptr = NULL;
 	/* Convert void to char for byte-by-byte access (void* can't be deref'd) */
 	char *src = (char *)ptr;
 
+	/* Case 1: No need to reallocate if sizes are identical */
 	if (new_size == old_size)
-		return (ptr); /* if new_size == old_size do nothing and return ptr */
-
-	if (ptr == NULL) /* If ptr is NULL, call is equiv. to malloc(new_size) */
+		return (ptr);
+	
+	/* Case 2: Equivalent to malloc if ptr is NULL */
+	if (ptr == NULL)
 	{
 		new_ptr = malloc(new_size);
-		return (new_ptr); /* no need to free 'cause ptr is NULL */
+		return (new_ptr);
 	}
 
-	/* If new_size = 0 and ptr != NULL, call is like free(ptr). Return NULL */
+	/* Case 3: Equivalent to free if new_size is 0 */
 	if ((new_size == 0) && (ptr != NULL))
 	{
 		free(ptr);
 		return (NULL);
 	}
 
-	new_ptr = malloc(new_size);	/* Allocate new memory block of "new_size" */
-	if (new_ptr == NULL)
-	{	/* check if memory allocation succeed */
-		return (NULL);
-	}
-	else
-	{	/* Copy old memory to new up to min of old/new sizes */
-		/* Calculate min of old_size and new_size */
-		minima = min(new_size, old_size);
-		for (i = 0; i < minima ; i++)
-		{
-			new_ptr[i] = src[i];
-		}
-	}
+	/* Case 4: Allocate new memory like realloc */
+	new_ptr = malloc(new_size);
 
-	free(ptr); /* Free old memory no longer needed */
+	if (new_ptr == NULL)
+		return (NULL);
+
+	minima = min(new_size, old_size);
+	for (i = 0; i < minima ; i++)
+		new_ptr[i] = src[i];
+
+	free(ptr);
 
 	return (new_ptr);
 }
