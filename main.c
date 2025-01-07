@@ -41,8 +41,8 @@ int main(int ac, char **av)
 			if (isatty(STDIN_FILENO) == 1)
 			{
 				printf("\nヾ(• ֊ •) Good bye !\n");
-				break;
 			}
+			break;
 		}
 
 		/* clean string (remove last \n char) */
