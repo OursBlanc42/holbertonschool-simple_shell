@@ -5,25 +5,6 @@
 #include <string.h>
 
 /**
- * user_entry - read user input and process it
- *Return: return the string after process
- */
-char *user_entry(void)
-{
-	/* Waiting and read the input and check if succeed */
-		readed = getline(&string, &buffer_size, stdin);
-		if (readed == -1)
-		{
-			if (isatty(STDIN_FILENO) == 1)
-				printf("\nヾ(• ֊ •) Good bye ! \n");
-			break;
-		}
-
-		if (remove_newline(string) == NULL)
-			continue;
-}
-
-/**
 * main - Entry point of the simple shell
 * Description :
 *	Check arguments
@@ -47,7 +28,6 @@ int main(int argc, char **argv)
 		printf("Please no argument\n");
 		return (0);
 	}
-
 	while (1)
 	{
 		if (isatty(STDIN_FILENO) == 1)
@@ -58,7 +38,6 @@ int main(int argc, char **argv)
 			free(string_copy);
 			string_copy = NULL;
 		}
-
 		/* Waiting and read the input and check if succeed */
 		readed = getline(&string, &buffer_size, stdin);
 		if (readed == -1)
@@ -67,7 +46,6 @@ int main(int argc, char **argv)
 				printf("\nヾ(• ֊ •) Good bye ! \n");
 			break;
 		}
-
 		if (remove_newline(string) == NULL)
 			continue;
 
@@ -77,10 +55,8 @@ int main(int argc, char **argv)
 			perror("strdup");
 			continue;
 		}
-
 		execute(string_copy, *argv);
 	}
-
 	free(string);
 	return (0);
 }
