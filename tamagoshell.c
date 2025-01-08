@@ -31,7 +31,6 @@ int main(int argc, char **argv)
 
 	while (1)
 	{
-		/* Show prompt only if are in terminal */
 		if (isatty(STDIN_FILENO) == 1)
 			printf("( ・‿・) > ");
 
