@@ -23,7 +23,6 @@ int execute(char *string, char *av)
 	if (child_argv == NULL || child_argv[0] == NULL)
 	{
 		free(child_argv);
-		free(string);
 		return (1);
 	}
 
@@ -32,7 +31,6 @@ int execute(char *string, char *av)
 	if (child_pid == -1)
 	{
 		perror(av);
-		free(string);
 		free_darray(child_argv);
 		return (1);
 	}
@@ -44,7 +42,6 @@ int execute(char *string, char *av)
 		{
 			perror(av);
 			free_darray(child_argv);
-			free(string);
 			exit(EXIT_FAILURE);
 		}
 	}
