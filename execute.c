@@ -19,15 +19,18 @@
 int execute(char *string, char *av)
 {
 	__pid_t child_pid;
-	char **child_argv = NULL;
-	char *executable_path = NULL;
 
-	/* Split the command line into an array of arguments */
-	child_argv = separate_arg(string);
+	char **child_argv = NULL, *string_copy = NULL;
+
+	string_copy = duplicate_string(string);
+	if (string_copy == NULL)
+		return (1);
+
+	/* Split string_copy into arguments */
+	child_argv = separate_arg(string_copy);
 	if (child_argv == NULL || child_argv[0] == NULL)
 	{
-		free(child_argv);
-		fprintf(stderr, "%s: command not found\n", av);
+		free_memory(string_copy, child_argv);
 		return (1);
 	}
 
@@ -37,37 +40,62 @@ int execute(char *string, char *av)
 	{
 		fprintf(stderr, "%s: %s: command not found\n", av, child_argv[0]);
 		free_darray(child_argv);
-		return (1);
+		return(1);
 	}
 
-	/* fork current process and check if succeed */
 	child_pid = fork();
 	if (child_pid == -1)
 	{
-		perror("fork");
-		free_darray(child_argv);
-		free(executable_path);
+		perror(av);
+		free_memory(string_copy, child_argv);
 		return (1);
 	}
 
-	/* Execute the command in child process */
+	/* Child process: Execute the command */
 	if (child_pid == 0)
 	{
 		if (execve(executable_path, child_argv, environ) == -1)
 		{
-			printf("(╯°□°）╯︵ ┻━┻ (Execve error)\n");
-			free_darray(child_argv);
-			free(executable_path);
+			perror(av);
+			free_memory(string_copy, child_argv);
+			free(string);
 			exit(EXIT_FAILURE);
 		}
 	}
 
-	/* waiting for child finish execution */
+	/* Parent process: Wait for child to finish */
 	else
 		wait(NULL);
-
-	free_darray(child_argv);
-	free(executable_path);
-
+	free_memory(string_copy, child_argv);
 	return (0);
+}
+
+/**
+ * free_memory - free array alocate
+ * @command: a string with the command
+ * @child_argv: a double array wtith different argument separate
+ * Return: Nothing (void)
+ */
+void free_memory(char *command, char **child_argv)
+{
+	free(command);
+	free_darray(child_argv);
+}
+
+/**
+* duplicate_string - string to duplicate
+* @string: the string to duplicate
+* Return: a copy of the string or NULL if error
+*/
+char *duplicate_string(const char *string)
+{
+	char *string_copy = strdup(string);
+
+	if (string_copy == NULL)
+	{
+		perror("strdup");
+		return (NULL);
+	}
+
+	return (string_copy);
 }

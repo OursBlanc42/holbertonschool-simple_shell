@@ -38,17 +38,21 @@ int main(int ac, char **av)
 		readed = getline(&string, &buffer_size, stdin);
 		if (readed == -1)
 		{
-			printf("\nヾ(• ֊ •) Good bye !\n");
+			if (isatty(STDIN_FILENO) == 1)
+				printf("\n");
 			break;
 		}
 
-		/* clean string (remove last \n char) */
-		string = remove_newline(string);
+		/* Clean string and skip if the input is empty*/
+		if (remove_newline(string) == NULL)
+			continue;
 
-		/* call subfunction to execute command */
+		/* Call subfunction to execute command */
 		if (execute(string, *av) == 1)
 			continue;
+
 	}
+
 	free(string);
 	return (0);
 }
