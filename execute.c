@@ -55,6 +55,7 @@ int execute(char *string, char *av)
 			perror(av);
 			free(command_copy);
 			free_darray(child_argv);
+			free(string);
 			exit(EXIT_FAILURE);
 		}
 	}
