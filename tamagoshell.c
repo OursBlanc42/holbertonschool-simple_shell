@@ -19,8 +19,7 @@
 
 int main(int argc, char **argv)
 {
-	char *string = NULL;
-	char *string_copy = NULL;
+	char *string = NULL, *string_copy = NULL;
 	size_t buffer_size = 0;
 	ssize_t readed;
 
@@ -48,11 +47,10 @@ int main(int argc, char **argv)
 		if (readed == -1)
 		{
 			if (isatty(STDIN_FILENO) == 1)
-				printf("\n");
+				printf("ヾ(• ֊ •) Good bye ! \n");
 			break;
 		}
 
-		/* Clean string and skip if the input is empty*/
 		if (remove_newline(string) == NULL)
 			continue;
 
@@ -64,8 +62,7 @@ int main(int argc, char **argv)
 			continue;
 		}
 
-		if (execute(string_copy, *argv) == 1)
-			continue;
+		execute(string_copy, *argv);
 	}
 
 	free(string);
