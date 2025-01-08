@@ -47,7 +47,7 @@ int main(int argc, char **argv)
 		if (readed == -1)
 		{
 			if (isatty(STDIN_FILENO) == 1)
-				printf("ヾ(• ֊ •) Good bye ! \n");
+				printf("\nヾ(• ֊ •) Good bye ! \n");
 			break;
 		}
 
