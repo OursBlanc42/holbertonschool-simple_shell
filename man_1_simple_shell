@@ -1,18 +1,59 @@
+.\" Manpage for tamagoshell.
+.\" Contact auhtors (see COPYRIGHT) to correct errors or typos.
+
 .TH man 1 "08 Jan 2025" "0.2.5" "Tamagoshell"
 .SH NAME
 .B Tamagoshell
 - a simple command language interpreter
-.SH SYNOPSYS
-.B hsh
-.I [command] [arguments]
+.SH SYNOPSIS
+.B tamagoshell
 .SH COPYRIGHT
-This project is licensed under the Attribution-NonCommercial 4.0 International (CC BY-NC 4.0).
+This project is licensed under the
+Attribution-NonCommercial 4.0 International (CC BY-NC 4.0).
 
 Written by Simon R. and Damien J.
+
 .SH DESCRIPTION
 Tamagoshell is a minimalist shell inspired by tamagotchi heads.
-It is a command-line interpreter executes commands read from user input.
+It is a command-line interpreter that executes commands read from user input
+and supports basic command execution without advanced features like pipes,
+redirections, or built-in functions.
+
 .SH USAGE
-Run and type a command followed by arguments (if any) and press Enter.
+Run the shell and type a command followed by arguments (if any) and press Enter.
+
+.SH EXAMPLES
+This section shows some example commands and their output in Tamagoshell :
+
+
+.B /bin/ls -l -a
+.RS
+( ・‿・) > /bin/ls -l -a /tmp/test
+
+total 28
+drwxrwxrwx  2 oursblanc oursblanc  4096 janv.  8 20:34  .
+drwxrwxrwt 26 root      root      12288 janv.  8 20:34  ..
+-rw-rw-rw-  1 oursblanc oursblanc  1253 janv.  8 20:29 'lorem ipsum'
+-rw-rw-rw-  1 oursblanc oursblanc  1253 janv.  8 20:29  testfile
+-rw-rw-rw-  1 oursblanc oursblanc  1253 janv.  8 20:29  v7r8aqa8
+.RE
+
+.B /usr/bin/head /tmp/test/testfile
+.RS
+( ・‿・) > /usr/bin/head /tmp/test/testfile
+
+01.08@19:50 ++ Launching Update Manager
+01.08@19:50 ++ Changes to the package cache detected, triggering refresh
+01.08@19:50 ++ Initial refresh will happen in 0 day(s), 0 hour(s) and 10 minute(s)
+01.08@19:50 ++ Inhibited power management
+01.08@19:50 ++ Starting refresh (local only)
+01.08@19:50 ++ Tracker: Mintupdate update button was pressed recently: 1 days ago
+01.08@19:50 ++ System is up to date
+01.08@19:50 ++ Refresh finished
+01.08@19:50 ++ Resumed power management
+01.08@20:00 ++ Update Manager is in tray mode, performing initial refresh
+.RE
+
 .SH SEE ALSO
 .B sh
+

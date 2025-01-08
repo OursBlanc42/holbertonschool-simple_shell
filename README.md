@@ -9,7 +9,8 @@ Tamago-shell is a simple shell developed as an end-of-term project during the fi
 
 ## Demo
 Tamago-shell in action :
-![Tamago-shell Screenshot](docs/images/screenshot.png)
+
+![Tamago-shell Demo](docs/images/demo.gif)
 
 
 ## Features
