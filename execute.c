@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <string.h>
 #include "_which.h"
 
 /**
@@ -21,6 +22,7 @@ int execute(char *string, char *av)
 	__pid_t child_pid;
 
 	char **child_argv = NULL, *string_copy = NULL;
+	char *executable_path = NULL;
 
 	string_copy = duplicate_string(string);
 	if (string_copy == NULL)
