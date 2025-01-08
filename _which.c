@@ -28,7 +28,7 @@
 char *_which(char *target_program)
 {
 	char *separator = ":";
-	char *env_path = _getenv("PATH");
+	char *env_path = NULL;
 	struct stat buffer_stat;
 	list_t *head_path_list = NULL, *path_list = NULL;
 	char *string_concat = NULL, *resolved_path = NULL;
@@ -37,8 +37,18 @@ char *_which(char *target_program)
 	if (stat(target_program, &buffer_stat) == 0)
 		return (strdup(target_program));
 
+	/* call env_path */
+	env_path = _getenv("PATH");
+	if (env_path == NULL)
+		return (NULL);
+
 	/* Generate path list */
 	head_path_list = chopper(env_path, separator);
+	if (head_path_list == NULL)
+	{
+		free(env_path);
+		return (NULL);
+	}
 	path_list = head_path_list;
 
 	/* Loop through the list to find the executable */
@@ -49,6 +59,7 @@ char *_which(char *target_program)
 		if (string_concat == NULL)	/* Check special case (error) */
 		{
 			free_list(head_path_list);
+			free(env_path);
 			return (NULL);
 		}
 
@@ -58,6 +69,7 @@ char *_which(char *target_program)
 			resolved_path = strdup(string_concat);
 			free(string_concat);
 			free_list(head_path_list);
+			free(env_path);
 			return (resolved_path);
 		}
 
@@ -65,6 +77,7 @@ char *_which(char *target_program)
 		path_list = path_list->next;
 	}
 
+	free(env_path);
 	free_list(head_path_list);
 	return (NULL);
 }

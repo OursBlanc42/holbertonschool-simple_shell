@@ -50,6 +50,7 @@ int execute(char *string, char *av)
 	{
 		perror(av);
 		free_memory(string_copy, child_argv);
+		free(executable_path);
 		return (1);
 	}
 
@@ -60,6 +61,7 @@ int execute(char *string, char *av)
 		{
 			perror(av);
 			free_memory(string_copy, child_argv);
+			free(executable_path);
 			free(string);
 			exit(EXIT_FAILURE);
 		}
@@ -68,7 +70,9 @@ int execute(char *string, char *av)
 	/* Parent process: Wait for child to finish */
 	else
 		wait(NULL);
+
 	free_memory(string_copy, child_argv);
+	free(executable_path);
 	return (0);
 }
 
