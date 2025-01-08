@@ -54,7 +54,6 @@ int main(int argc, char **argv)
 		if (remove_newline(string) == NULL)
 			continue;
 
-		/* duplicate string before sending to execute */
 		string_copy = strdup(string);
 		if (string_copy == NULL)
 		{
