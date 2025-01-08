@@ -17,33 +17,25 @@
 int execute(char *string, char *av)
 {
 	__pid_t child_pid;
-	char **child_argv = NULL;
-	char *command_copy = NULL;
+	char **child_argv = NULL, *command_copy = NULL;
 
-	/* Create a copy of the command string */
-	command_copy = strdup(string);
-	if (command_copy == NULL)
-	{
-		perror("strdup");
+	command_copy = cpy_string(string);
+	if (command_copy == 1)
 		return (1);
-	}
 
 	/* Split command_copy into arguments */
 	child_argv = separate_arg(command_copy);
 	if (child_argv == NULL || child_argv[0] == NULL)
 	{
-		free(command_copy);
-		free_darray(child_argv);
+		free_memory(command_copy, child_argv);
 		return (1);
 	}
 
-	/* Fork the current process */
 	child_pid = fork();
 	if (child_pid == -1)
 	{
 		perror(av);
-		free(command_copy);
-		free_darray(child_argv);
+		free_memory(command_copy, child_argv);
 		return (1);
 	}
 
@@ -53,8 +45,7 @@ int execute(char *string, char *av)
 		if (execve(child_argv[0], child_argv, environ) == -1)
 		{
 			perror(av);
-			free(command_copy);
-			free_darray(child_argv);
+			free_memory(command_copy, child_argv);
 			free(string);
 			exit(EXIT_FAILURE);
 		}
@@ -62,12 +53,37 @@ int execute(char *string, char *av)
 
 	/* Parent process: Wait for child to finish */
 	else
-	{
 		wait(NULL);
+	free_memory(command_copy, child_argv);
+	return (0);
+}
+
+/**
+ * free_memory - free array alocate
+ *@command: a string with the command
+ *@child_argv: a double array wtith different argument separate
+ */
+void free_memory(char *command, char **child_argv)
+{
+	free(command);
+	free_darray(child_argv);
+}
+
+/**
+ * cpy_string - copy a string for manipulate
+ *@string: string to copy
+ *Return: return the copy
+ */
+char *cpy_string(char *string)
+{
+	char *command_copy;
+
+	command_copy = strdup(string);
+	if (command_copy == NULL)
+	{
+		perror("strdup");
+		return (1);
 	}
 
-	/* Free resources */
-	free(command_copy);
-	free_darray(child_argv);
-	return (0);
+	return (command_copy);
 }
