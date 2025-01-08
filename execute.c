@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/wait.h>
-
 #include "_which.h"
 
 /**
@@ -14,10 +13,10 @@
 *	execute the command line in child process
 *	and wait the end of execve
 *@string: string with the command line
-*@av: argument with the name of shell
+*@argv: argument with the name of shell
 *Return: return 0 if sucess or 1 if fail
 */
-int execute(char *string, char *av)
+int execute(char *string, char *argv)
 {
 	__pid_t child_pid;
 
@@ -36,7 +35,7 @@ int execute(char *string, char *av)
 	executable_path = _which(child_argv[0]);
 	if (executable_path == NULL)
 	{
-		fprintf(stderr, "%s: %s: command not found\n", av, child_argv[0]);
+		fprintf(stderr, "%s: %s: command not found\n", argv, child_argv[0]);
 		free_darray(child_argv);
 		return(1);
 	}
@@ -44,7 +43,7 @@ int execute(char *string, char *av)
 	child_pid = fork();
 	if (child_pid == -1)
 	{
-		perror(av);
+		perror(argv);
 		free_darray(child_argv);
 		free(executable_path);
 		return (1);
@@ -55,7 +54,7 @@ int execute(char *string, char *av)
 	{
 		if (execve(executable_path, child_argv, environ) == -1)
 		{
-			perror(av);
+			perror(argv);
 			free_darray(child_argv);
 			free(executable_path);
 			exit(EXIT_FAILURE);

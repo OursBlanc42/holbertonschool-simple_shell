@@ -12,19 +12,19 @@
 *	Read user input
 *	Call subfunction to clean string (remove \n character )
 *	Call subfunction to execute the command
-*@ac: number of argument
-*@av: array of argument
+*@argc: number of argument
+*@argv: array of argument
 * Return: Always 0 (waiting abort (ctrl+c) or EOF (ctrl+d)
 */
 
-int main(int ac, char **av)
+int main(int argc, char **argv)
 {
 	char *string = NULL;
 	char *string_copy = NULL;
 	size_t buffer_size = 0;
 	ssize_t readed;
 
-	if (ac != 1)
+	if (argc != 1)
 	{
 		printf("Please no argument\n");
 		return (0);
@@ -65,7 +65,7 @@ int main(int ac, char **av)
 		}
 
 		
-		if (execute(string_copy, *av) == 1)
+		if (execute(string_copy, *argv) == 1)
 			continue;
 
 	}
