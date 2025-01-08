@@ -39,8 +39,8 @@ int main(int argc, char **argv)
 		/* reset string buffer */
 		if (string_copy != NULL)
 		{
-		free(string_copy);
-		string_copy = NULL;
+			free(string_copy);
+			string_copy = NULL;
 		}
 
 		/* Waiting and read the input and check if succeed */
@@ -64,10 +64,8 @@ int main(int argc, char **argv)
 			continue;
 		}
 
-		
 		if (execute(string_copy, *argv) == 1)
 			continue;
-
 	}
 
 	free(string);

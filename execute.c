@@ -27,7 +27,7 @@ int execute(char *string, char *argv)
 	child_argv = separate_arg(string);
 	if (child_argv == NULL || child_argv[0] == NULL)
 	{
-        free_darray(child_argv);
+		free_darray(child_argv);
 		return (1);
 	}
 
@@ -37,7 +37,7 @@ int execute(char *string, char *argv)
 	{
 		fprintf(stderr, "%s: %s: command not found\n", argv, child_argv[0]);
 		free_darray(child_argv);
-		return(1);
+		return (1);
 	}
 
 	child_pid = fork();
