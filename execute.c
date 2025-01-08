@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/wait.h>
-#include <string.h>
+
 #include "_which.h"
 
 /**
@@ -21,18 +21,14 @@ int execute(char *string, char *av)
 {
 	__pid_t child_pid;
 
-	char **child_argv = NULL, *string_copy = NULL;
+	char **child_argv = NULL;
 	char *executable_path = NULL;
 
-	string_copy = duplicate_string(string);
-	if (string_copy == NULL)
-		return (1);
-
-	/* Split string_copy into arguments */
-	child_argv = separate_arg(string_copy);
+	/* Split string into arguments */
+	child_argv = separate_arg(string);
 	if (child_argv == NULL || child_argv[0] == NULL)
 	{
-		free_memory(string_copy, child_argv);
+        free_darray(child_argv);
 		return (1);
 	}
 
@@ -49,7 +45,7 @@ int execute(char *string, char *av)
 	if (child_pid == -1)
 	{
 		perror(av);
-		free_memory(string_copy, child_argv);
+		free_darray(child_argv);
 		free(executable_path);
 		return (1);
 	}
@@ -60,9 +56,8 @@ int execute(char *string, char *av)
 		if (execve(executable_path, child_argv, environ) == -1)
 		{
 			perror(av);
-			free_memory(string_copy, child_argv);
+			free_darray(child_argv);
 			free(executable_path);
-			free(string);
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -71,37 +66,7 @@ int execute(char *string, char *av)
 	else
 		wait(NULL);
 
-	free_memory(string_copy, child_argv);
+	free_darray(child_argv);
 	free(executable_path);
 	return (0);
-}
-
-/**
- * free_memory - free array alocate
- * @command: a string with the command
- * @child_argv: a double array wtith different argument separate
- * Return: Nothing (void)
- */
-void free_memory(char *command, char **child_argv)
-{
-	free(command);
-	free_darray(child_argv);
-}
-
-/**
-* duplicate_string - string to duplicate
-* @string: the string to duplicate
-* Return: a copy of the string or NULL if error
-*/
-char *duplicate_string(const char *string)
-{
-	char *string_copy = strdup(string);
-
-	if (string_copy == NULL)
-	{
-		perror("strdup");
-		return (NULL);
-	}
-
-	return (string_copy);
 }

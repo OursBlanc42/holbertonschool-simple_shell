@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include "tamagoshell.h"
+#include <string.h>
 
 /**
 * main - Entry point of the simple shell
@@ -19,6 +20,7 @@
 int main(int ac, char **av)
 {
 	char *string = NULL;
+	char *string_copy = NULL;
 	size_t buffer_size = 0;
 	ssize_t readed;
 
@@ -34,6 +36,13 @@ int main(int ac, char **av)
 		if (isatty(STDIN_FILENO) == 1)
 			printf("( ・‿・) > ");
 
+		/* reset string buffer */
+		if (string_copy != NULL)
+		{
+		free(string_copy);
+		string_copy = NULL;
+		}
+
 		/* Waiting and read the input and check if succeed */
 		readed = getline(&string, &buffer_size, stdin);
 		if (readed == -1)
@@ -47,8 +56,16 @@ int main(int ac, char **av)
 		if (remove_newline(string) == NULL)
 			continue;
 
-		/* Call subfunction to execute command */
-		if (execute(string, *av) == 1)
+		/* duplicate string before sending to execute */
+		string_copy = strdup(string);
+		if (string_copy == NULL)
+		{
+			perror("strdup");
+			continue;
+		}
+
+		
+		if (execute(string_copy, *av) == 1)
 			continue;
 
 	}
