@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
-#include "_which.h"
+#include "tamagoshell.h"
 
 /**
  * chopper - Splits a string into a linked list of words

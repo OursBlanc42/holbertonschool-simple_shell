@@ -3,8 +3,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
-#include "_which.h"
-#include "find.h"
+#include "tamagoshell.h"
 
 /**
 * _which - Rewrite of the `which` command

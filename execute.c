@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/wait.h>
-#include "_which.h"
 
 /**
  * execute - execute the command line

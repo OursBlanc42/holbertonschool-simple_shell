@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "find.h"
+#include "tamagoshell.h"
 
 /**
  * _getenv - search a variable in the environnement
