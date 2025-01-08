@@ -17,17 +17,17 @@
 int execute(char *string, char *av)
 {
 	__pid_t child_pid;
-	char **child_argv = NULL, *command_copy = NULL;
+	char **child_argv = NULL, *string_copy = NULL;
 
-	command_copy = cpy_string(string);
-	if (command_copy == 1)
+	string_copy = duplicate_string(string);
+	if (string_copy == NULL)
 		return (1);
 
-	/* Split command_copy into arguments */
-	child_argv = separate_arg(command_copy);
+	/* Split string_copy into arguments */
+	child_argv = separate_arg(string_copy);
 	if (child_argv == NULL || child_argv[0] == NULL)
 	{
-		free_memory(command_copy, child_argv);
+		free_memory(string_copy, child_argv);
 		return (1);
 	}
 
@@ -35,7 +35,7 @@ int execute(char *string, char *av)
 	if (child_pid == -1)
 	{
 		perror(av);
-		free_memory(command_copy, child_argv);
+		free_memory(string_copy, child_argv);
 		return (1);
 	}
 
@@ -45,7 +45,7 @@ int execute(char *string, char *av)
 		if (execve(child_argv[0], child_argv, environ) == -1)
 		{
 			perror(av);
-			free_memory(command_copy, child_argv);
+			free_memory(string_copy, child_argv);
 			free(string);
 			exit(EXIT_FAILURE);
 		}
@@ -54,14 +54,15 @@ int execute(char *string, char *av)
 	/* Parent process: Wait for child to finish */
 	else
 		wait(NULL);
-	free_memory(command_copy, child_argv);
+	free_memory(string_copy, child_argv);
 	return (0);
 }
 
 /**
  * free_memory - free array alocate
- *@command: a string with the command
- *@child_argv: a double array wtith different argument separate
+ * @command: a string with the command
+ * @child_argv: a double array wtith different argument separate
+ * Return: Nothing (void)
  */
 void free_memory(char *command, char **child_argv)
 {
@@ -70,20 +71,19 @@ void free_memory(char *command, char **child_argv)
 }
 
 /**
- * cpy_string - copy a string for manipulate
- *@string: string to copy
- *Return: return the copy
- */
-char *cpy_string(char *string)
+* duplicate_string - string to duplicate
+* @string: the string to duplicate
+* Return: a copy of the string or NULL if error
+*/
+char *duplicate_string(const char *string)
 {
-	char *command_copy;
+	char *string_copy = strdup(string);
 
-	command_copy = strdup(string);
-	if (command_copy == NULL)
+	if (string_copy == NULL)
 	{
 		perror("strdup");
-		return (1);
+		return (NULL);
 	}
 
-	return (command_copy);
+	return (string_copy);
 }
