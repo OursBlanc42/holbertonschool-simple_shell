@@ -46,12 +46,15 @@ int main(int ac, char **av)
 		}
 
 		/* clean string (remove last \n char) */
-		string = remove_newline(string);
+		if (remove_newline(string) == NULL)
+		{
+			continue; /* Skip to next iteration if string is NULL or empty */
+		}
 
 		/* call subfunction to execute command */
 		if (string == NULL)
 			continue;
-		
+
 		if (execute(string, *av) == 1)
 			continue;
 	}

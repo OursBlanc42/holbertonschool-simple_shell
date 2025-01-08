@@ -5,7 +5,7 @@
  *Description:
  *	Search a newline character in a string
  *	and if find it change newline character
- *	by null character ('\0)
+ *	by null character ('\0) check also if string is empty
  *@string: the string for search
  *Return: return a pointer of string after changement
  */
@@ -14,7 +14,7 @@ char *remove_newline(char *string)
 {
 	int index;
 
-	if (string == NULL)
+	if ((string == NULL) || (string[0] == '\0'))
 	{
 		return (NULL);
 	}
@@ -24,5 +24,6 @@ char *remove_newline(char *string)
 		if (string[index] == '\n')
 			string[index] = '\0';
 	}
+
 	return (string);
 }
