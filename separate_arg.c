@@ -15,16 +15,13 @@ char **separate_arg(char *string)
 	const char *separator = " ";
 	int index = 0, array_length = 0;
 
-	/* check special case */
-	if (string == NULL)
-		return (NULL);
-
 	argument_temp = strtok(string, separator);
 	while (argument_temp != NULL)
 	{
 		/* increase array by one word */
 		array_length++;
-		child_argv = realloc(child_argv, sizeof(char *) * array_length);
+		child_argv = _realloc(child_argv, sizeof(char *) * (array_length - 1),
+		 sizeof(char *) * array_length);
 		if (child_argv == NULL)
 			return (NULL);
 
@@ -43,12 +40,15 @@ char **separate_arg(char *string)
 	}
 
 	/*Add a NULL at the end for execve*/
-	child_argv = realloc(child_argv, sizeof(char *) * (array_length + 1));
+	child_argv = _realloc(child_argv, sizeof(char *) * array_length,
+	 sizeof(char *) * (array_length + 1));
 		if (child_argv == NULL)
 		{
 			free_darray(child_argv);
 			return (NULL);
 		}
+
 	child_argv[array_length] = NULL;
+
 	return (child_argv);
 }

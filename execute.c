@@ -3,55 +3,87 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <string.h>
 
 /**
- * execute - execute the command line
- *Description:
- *	fork the current process
- *	execute the command line in child process
- *	and wait the end of execve
- *@string: string with the command line
- *@av: argument with the name of shell
- *Return: return 0 if sucess or 1 if fail
- */
+* execute - execute the command line
+* Description:
+*     Forks the current process, executes the command in the child process,
+*     and waits for the child process to finish.
+* @string: Command line string (should not be freed here)
+* @av: Name of the shell program
+* Return: 0 if success, 1 if failure
+*/
 int execute(char *string, char *av)
 {
 	__pid_t child_pid;
-	char **child_argv = NULL;
+	char **child_argv = NULL, *string_copy = NULL;
 
-	child_argv = separate_arg(string);
+	string_copy = duplicate_string(string);
+	if (string_copy == NULL)
+		return (1);
+
+	/* Split string_copy into arguments */
+	child_argv = separate_arg(string_copy);
 	if (child_argv == NULL || child_argv[0] == NULL)
 	{
-		free(child_argv);
-		free(string);
+		free_memory(string_copy, child_argv);
 		return (1);
 	}
 
-	/* fork current process and check if succeed */
 	child_pid = fork();
 	if (child_pid == -1)
 	{
 		perror(av);
-		free(string);
-		free_darray(child_argv);
+		free_memory(string_copy, child_argv);
 		return (1);
 	}
 
-	/* Execute the command in child process */
+	/* Child process: Execute the command */
 	if (child_pid == 0)
 	{
 		if (execve(child_argv[0], child_argv, environ) == -1)
 		{
 			perror(av);
-			free_darray(child_argv);
+			free_memory(string_copy, child_argv);
 			free(string);
 			exit(EXIT_FAILURE);
 		}
 	}
 
-	/* waiting for child finish execution */
+	/* Parent process: Wait for child to finish */
 	else
 		wait(NULL);
-	free_darray(child_argv);
+	free_memory(string_copy, child_argv);
 	return (0);
+}
+
+/**
+ * free_memory - free array alocate
+ * @command: a string with the command
+ * @child_argv: a double array wtith different argument separate
+ * Return: Nothing (void)
+ */
+void free_memory(char *command, char **child_argv)
+{
+	free(command);
+	free_darray(child_argv);
+}
+
+/**
+* duplicate_string - string to duplicate
+* @string: the string to duplicate
+* Return: a copy of the string or NULL if error
+*/
+char *duplicate_string(const char *string)
+{
+	char *string_copy = strdup(string);
+
+	if (string_copy == NULL)
+	{
+		perror("strdup");
+		return (NULL);
+	}
+
+	return (string_copy);
 }
