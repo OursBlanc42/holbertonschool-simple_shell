@@ -1,4 +1,4 @@
-.TH man 1 "04 Jan 2025" "0.2" "Tamagoshell"
+.TH man 1 "08 Jan 2025" "0.2.5" "Tamagoshell"
 .SH NAME
 .B Tamagoshell
 - a simple command language interpreter
