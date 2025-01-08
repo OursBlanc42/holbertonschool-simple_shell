@@ -35,7 +35,6 @@ int main(int argc, char **argv)
 		if (isatty(STDIN_FILENO) == 1)
 			printf("( ・‿・) > ");
 
-		/* reset string buffer */
 		if (string_copy != NULL)
 		{
 			free(string_copy);
