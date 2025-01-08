@@ -1,6 +1,5 @@
-# Tamago-shell
 <p align="center">
-  <img src="docs/images/logo.png" alt="Tamago-shell Logo">
+  <img src="docs/images/tamagoshell.png" alt="Tamagoshell Logo">
 </p>
 
 
@@ -44,7 +43,8 @@ gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o tamagoshell
 ![Tamago-shell Flowchart](docs/flowcharts/tamagoshell.jpg)
 
 For more detail about the recoding of our own `_which` function please click below :
-[![_which Flowchart](docs/flowcharts/_which.jpg)](https://github.com/OursBlanc42/holbertonschool-simple_shell/blob/main/docs/flowcharts/_which.jpg)
+[_which flowchart](https://github.com/OursBlanc42/holbertonschool-simple_shell/blob/main/docs/flowcharts/_which.jpg)
+
 
 
 ## Version
