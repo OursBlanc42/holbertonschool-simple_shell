@@ -19,7 +19,6 @@
 int execute(char *string, char *argv)
 {
 	__pid_t child_pid;
-
 	char **child_argv = NULL;
 	char *executable_path = NULL;
 
@@ -43,9 +42,7 @@ int execute(char *string, char *argv)
 	child_pid = fork();
 	if (child_pid == -1)
 	{
-		perror(argv);
-		free_darray(child_argv);
-		free(executable_path);
+		cleanup_error(executable_path, child_argv, argv);
 		return (1);
 	}
 
@@ -54,9 +51,7 @@ int execute(char *string, char *argv)
 	{
 		if (execve(executable_path, child_argv, environ) == -1)
 		{
-			perror(argv);
-			free_darray(child_argv);
-			free(executable_path);
+			cleanup_error(executable_path, child_argv, argv);
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -68,4 +63,17 @@ int execute(char *string, char *argv)
 	free_darray(child_argv);
 	free(executable_path);
 	return (0);
+}
+
+/**
+ * free_memory - free array alocate
+ * @command: a string with the command
+ * @child_argv: a double array wtith different argument separate
+ * Return: Nothing (void)
+ */
+void cleanup_error(char *exec_path, char **child_argv, char *argv)
+{
+	perror(argv);
+	free(exec_path);
+	free_darray(child_argv);
 }
