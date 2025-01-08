@@ -30,13 +30,6 @@ int main(int ac, char **av)
 
 	while (1)
 	{
-		/* reset string */
-		if (string != NULL)
-		{
-			free(string);
-			string = NULL;
-		}
-
 		/* Show prompt only if are in terminal */
 		if (isatty(STDIN_FILENO) == 1)
 			printf("( ・‿・) > ");
@@ -46,23 +39,17 @@ int main(int ac, char **av)
 		if (readed == -1)
 		{
 			if (isatty(STDIN_FILENO) == 1)
-			{
 				printf("\n");
-			}
 			break;
 		}
 
-		/* clean string (remove last \n char) */
+		/* Clean string and skip if the input is empty*/
 		if (remove_newline(string) == NULL)
-		{
-			continue; /* Skip to next iteration if string is NULL or empty */
-		}
-
-		/* call subfunction to execute command */
-		if (execute(string, *av) == 1)
-		{
 			continue;
-		}
+
+		/* Call subfunction to execute command */
+		if (execute(string, *av) == 1)
+			continue;
 			
 	}
 	
