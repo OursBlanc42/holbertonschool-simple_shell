@@ -50,9 +50,9 @@ int main(int ac, char **av)
 		/* Call subfunction to execute command */
 		if (execute(string, *av) == 1)
 			continue;
-			
+
 	}
-	
+
 	free(string);
 	return (0);
 }
