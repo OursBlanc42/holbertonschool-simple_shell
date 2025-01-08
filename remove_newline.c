@@ -1,3 +1,5 @@
+#include <stddef.h>
+
 /**
  * remove_newline - remove the newline char in a string
  *Description:
@@ -11,6 +13,11 @@
 char *remove_newline(char *string)
 {
 	int index;
+
+	if (string == NULL)
+	{
+		return (NULL);
+	}
 
 	for (index = 0; string[index] != '\0'; index++)
 	{
