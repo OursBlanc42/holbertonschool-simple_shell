@@ -49,6 +49,9 @@ int main(int ac, char **av)
 		string = remove_newline(string);
 
 		/* call subfunction to execute command */
+		if (string == NULL)
+			continue;
+		
 		if (execute(string, *av) == 1)
 			continue;
 	}
