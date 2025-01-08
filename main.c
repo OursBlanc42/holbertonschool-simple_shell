@@ -48,20 +48,17 @@ int main(int ac, char **av)
 		/* clean string (remove last \n char) */
 		if (remove_newline(string) == NULL)
 		{
-			free(string);
-			string = NULL;
 			continue; /* Skip to next iteration if string is NULL or empty */
 		}
 
 		/* call subfunction to execute command */
 		if (execute(string, *av) == 1)
 		{
-			free(string);
-			string = NULL;
 			continue;
 		}
 			
 	}
+	
 	free(string);
 	return (0);
 }
