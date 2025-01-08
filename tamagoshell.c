@@ -5,6 +5,14 @@
 #include <string.h>
 
 /**
+ * user_entry - read user input and process it
+ *Return: return the string after process
+ */
+char *user_entry(void)
+{
+}
+
+/**
 * main - Entry point of the simple shell
 * Description :
 *	Check arguments
