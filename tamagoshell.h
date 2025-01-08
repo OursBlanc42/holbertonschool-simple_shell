@@ -3,18 +3,6 @@
 
 extern char **environ;
 
-char *remove_newline(char *string);
-
-int execute(char *string, char *av);
-
-char **separate_arg(char *string);
-
-void free_darray(char **darray);
-
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
-
-char *_getenv(const char *search);
-
 /**
  * struct list_s - singly linked list
  * @string: string
@@ -28,6 +16,18 @@ char *string;
 struct list_s *next;
 } list_t;
 
+char *remove_newline(char *string);
+
+int execute(char *string, char *av);
+
+char **separate_arg(char *string);
+
+void free_darray(char **darray);
+
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+
+char *_getenv(const char *search);
+
 list_t *add_node_end(list_t **head, const char *str);
 
 list_t *chopper(char *string, char *separator);
@@ -37,5 +37,7 @@ void free_list(list_t *head);
 char *_which(char *target_program);
 
 char *concat_path(const char *base, const char *addendum);
+
+void cleanup_error(char *exec_path, char **child_argv, char *argv);
 
 #endif

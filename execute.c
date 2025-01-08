@@ -18,8 +18,7 @@
 int execute(char *string, char *argv)
 {
 	__pid_t child_pid;
-	char **child_argv = NULL;
-	char *executable_path = NULL;
+	char **child_argv = NULL, *executable_path = NULL;
 
 	/* Split string into arguments */
 	child_argv = separate_arg(string);
@@ -44,9 +43,7 @@ int execute(char *string, char *argv)
 		cleanup_error(executable_path, child_argv, argv);
 		return (1);
 	}
-
-	/* Child process: Execute the command */
-	if (child_pid == 0)
+	else if (child_pid == 0)
 	{
 		if (execve(executable_path, child_argv, environ) == -1)
 		{
@@ -54,8 +51,6 @@ int execute(char *string, char *argv)
 			exit(EXIT_FAILURE);
 		}
 	}
-
-	/* Parent process: Wait for child to finish */
 	else
 		wait(NULL);
 
@@ -65,9 +60,10 @@ int execute(char *string, char *argv)
 }
 
 /**
- * free_memory - free array alocate
- * @command: a string with the command
+ * cleanup_error - free array alocate
+ * @exec_path: a string with the command
  * @child_argv: a double array wtith different argument separate
+ * @argv: name of executable for error message
  * Return: Nothing (void)
  */
 void cleanup_error(char *exec_path, char **child_argv, char *argv)
