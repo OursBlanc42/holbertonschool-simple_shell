@@ -30,6 +30,13 @@ int main(int ac, char **av)
 
 	while (1)
 	{
+		/* reset string */
+		if (string != NULL)
+		{
+			free(string);
+			string = NULL;
+		}
+
 		/* Show prompt only if are in terminal */
 		if (isatty(STDIN_FILENO) == 1)
 			printf("( ・‿・) > ");
