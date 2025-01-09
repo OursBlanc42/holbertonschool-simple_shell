@@ -6,6 +6,25 @@
 #include "tamagoshell.h"
 
 /**
+* cleanup_which - Free the variable
+* Description: This subfunction will check each variable 
+* nd free it if necessary
+* @env_path: environnement path
+* @head_path_list: head of single linked list
+* @string_concat: concatened string
+* Return: Nothing (void)
+*/
+void cleanup_which(char *env_path, list_t *head_path_list, char *string_concat)
+{
+	if (env_path != NULL)
+		free(env_path);
+	if (head_path_list != NULL)
+		free_list(head_path_list);
+	if (string_concat != NULL)
+		free(string_concat);
+}
+
+/**
 * _which - Rewrite of the `which` command
 * Description: This program check if the given input is an executable;
 *				and if not : searches for the location of an executable
@@ -26,22 +45,19 @@
 
 char *_which(char *target_program)
 {
-	char *separator = ":";
-	char *env_path = NULL;
-	struct stat buffer_stat;
 	list_t *head_path_list = NULL, *path_list = NULL;
+	char *separator = ":", *env_path = NULL;
 	char *string_concat = NULL, *resolved_path = NULL;
+	struct stat buffer_stat;
 
 	/* Check if the input is a valid path and executable */
 	if (stat(target_program, &buffer_stat) == 0)
 		return (strdup(target_program));
 
-	/* call env_path */
 	env_path = _getenv("PATH");
 	if (env_path == NULL)
 		return (NULL);
 
-	/* Generate path list */
 	head_path_list = chopper(env_path, separator);
 	if (head_path_list == NULL)
 	{
@@ -55,10 +71,9 @@ char *_which(char *target_program)
 	{
 		string_concat = concat_path(path_list->string, target_program);
 
-		if (string_concat == NULL)	/* Check special case (error) */
+		if (string_concat == NULL)
 		{
-			free_list(head_path_list);
-			free(env_path);
+			cleanup_which(env_path, head_path_list, string_concat);
 			return (NULL);
 		}
 
@@ -66,18 +81,16 @@ char *_which(char *target_program)
 		if (stat(string_concat, &buffer_stat) == 0)
 		{
 			resolved_path = strdup(string_concat);
-			free(string_concat);
-			free_list(head_path_list);
-			free(env_path);
+			cleanup_which(env_path, head_path_list, string_concat);
 			return (resolved_path);
 		}
 
 		free(string_concat);
+		string_concat = NULL;
 		path_list = path_list->next;
 	}
 
-	free(env_path);
-	free_list(head_path_list);
+	cleanup_which(env_path, head_path_list, string_concat);
 	return (NULL);
 }
 
