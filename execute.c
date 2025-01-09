@@ -3,87 +3,72 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/wait.h>
-#include <string.h>
 
 /**
-* execute - execute the command line
-* Description:
-*     Forks the current process, executes the command in the child process,
-*     and waits for the child process to finish.
-* @string: Command line string (should not be freed here)
-* @av: Name of the shell program
-* Return: 0 if success, 1 if failure
+ * execute - execute the command line
+ *Description:
+*	fork the current process
+*	find the executable path with _which
+*	execute the command line in child process
+*	and wait the end of execve
+*@string: string with the command line
+*@argv: argument with the name of shell
+*Return: return 0 if sucess or 1 if fail
 */
-int execute(char *string, char *av)
+int execute(char *string, char *argv)
 {
 	__pid_t child_pid;
-	char **child_argv = NULL, *string_copy = NULL;
+	char **child_argv = NULL, *executable_path = NULL;
 
-	string_copy = duplicate_string(string);
-	if (string_copy == NULL)
-		return (1);
-
-	/* Split string_copy into arguments */
-	child_argv = separate_arg(string_copy);
+	/* Split string into arguments */
+	child_argv = separate_arg(string);
 	if (child_argv == NULL || child_argv[0] == NULL)
 	{
-		free_memory(string_copy, child_argv);
+		free_darray(child_argv);
+		return (1);
+	}
+
+	/* Resolve the executable path using _which */
+	executable_path = _which(child_argv[0]);
+	if (executable_path == NULL)
+	{
+		fprintf(stderr, "%s: %s: command not found\n", argv, child_argv[0]);
+		free_darray(child_argv);
 		return (1);
 	}
 
 	child_pid = fork();
 	if (child_pid == -1)
 	{
-		perror(av);
-		free_memory(string_copy, child_argv);
+		cleanup_error(executable_path, child_argv, argv);
 		return (1);
 	}
-
-	/* Child process: Execute the command */
-	if (child_pid == 0)
+	else if (child_pid == 0)
 	{
-		if (execve(child_argv[0], child_argv, environ) == -1)
+		if (execve(executable_path, child_argv, environ) == -1)
 		{
-			perror(av);
-			free_memory(string_copy, child_argv);
-			free(string);
+			cleanup_error(executable_path, child_argv, argv);
 			exit(EXIT_FAILURE);
 		}
 	}
-
-	/* Parent process: Wait for child to finish */
 	else
 		wait(NULL);
-	free_memory(string_copy, child_argv);
+
+	free_darray(child_argv);
+	free(executable_path);
 	return (0);
 }
 
 /**
- * free_memory - free array alocate
- * @command: a string with the command
+ * cleanup_error - free array alocate
+ * @exec_path: a string with the command
  * @child_argv: a double array wtith different argument separate
+ * @argv: name of executable for error message
  * Return: Nothing (void)
  */
-void free_memory(char *command, char **child_argv)
+void cleanup_error(char *exec_path, char **child_argv, char *argv)
 {
-	free(command);
+	perror(argv);
+	free(exec_path);
 	free_darray(child_argv);
-}
-
-/**
-* duplicate_string - string to duplicate
-* @string: the string to duplicate
-* Return: a copy of the string or NULL if error
-*/
-char *duplicate_string(const char *string)
-{
-	char *string_copy = strdup(string);
-
-	if (string_copy == NULL)
-	{
-		perror("strdup");
-		return (NULL);
-	}
-
-	return (string_copy);
 }
