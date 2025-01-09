@@ -39,6 +39,8 @@ gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o tamagoshell
 ```
 4. Type command to see the tamagochi heads in action!
 
+You can also download the executable directly from the "Release" tab on the Github page.
+
 
 ## Flowcharts
 ![Tamago-shell Flowchart](docs/flowcharts/tamagoshell.jpg)
@@ -49,12 +51,11 @@ For more detail about the recoding of our own `_which` function please click bel
 
 
 ## Version
-Current version: 0.2.5
+Current version: 0.3
 
 
 ## Roadmap
 Next version of Tamagoshell will include somes enhancements like :
-- **Handling the PATH**: Improve the shell to use directly command name (and not full path command name)
 - **Built-in Commands**: `exit` to terminate the shell session and `env` to display the environment variables.
 
 
