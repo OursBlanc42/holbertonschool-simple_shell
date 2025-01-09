@@ -15,6 +15,17 @@ typedef struct list_s
 char *string;
 struct list_s *next;
 } list_t;
+/**
+ * struct built_in - structure for the function built-in
+ *
+ *@name_func: command use by users
+ *@function_built: function call by command
+ */
+typedef struct built_in
+{
+	char *name_func;
+	void (*function_built)(void);
+} search_built;
 
 char *remove_newline(char *string);
 
