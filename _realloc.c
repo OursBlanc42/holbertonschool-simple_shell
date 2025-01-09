@@ -40,30 +40,26 @@ unsigned int min(unsigned int a, unsigned int b)
 
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 {
-	unsigned int i, minima;
+	unsigned int index, minima;
 	char *new_ptr = NULL;
 	/* Convert void to char for byte-by-byte access (void* can't be deref'd) */
 	char *src = (char *)ptr;
 
-	/* Case 1: No need to reallocate if sizes are identical */
 	if (new_size == old_size)
 		return (ptr);
 
-	/* Case 2: Equivalent to malloc if ptr is NULL */
 	if (ptr == NULL)
 	{
 		new_ptr = malloc(new_size);
 		return (new_ptr);
 	}
 
-	/* Case 3: Equivalent to free if new_size is 0 */
 	if ((new_size == 0) && (ptr != NULL))
 	{
 		free(ptr);
 		return (NULL);
 	}
 
-	/* Case 4: Allocate new memory like realloc */
 	new_ptr = malloc(new_size);
 
 	if (new_ptr == NULL)
@@ -71,8 +67,8 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 
 	/* Copy data to the smaller size to avoid out of bounds */
 	minima = min(new_size, old_size);
-	for (i = 0; i < minima ; i++)
-		new_ptr[i] = src[i];
+	for (index = 0; index < minima ; index++)
+		new_ptr[index] = src[index];
 
 	free(ptr);
 
