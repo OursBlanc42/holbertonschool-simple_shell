@@ -39,7 +39,9 @@ gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o tamagoshell
 ```
 4. Type command to see the tamagochi heads in action!
 
-You can also download the executable directly from the "Release" tab on the Github page.
+You can also download the executable directly from here : 
+![Download Tamagoshell](https://github.com/OursBlanc42/holbertonschool-simple_shell/raw/main/tamagoshell)
+
 
 
 ## Flowcharts
