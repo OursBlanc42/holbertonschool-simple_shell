@@ -49,12 +49,11 @@ For more detail about the recoding of our own `_which` function please click bel
 
 
 ## Version
-Current version: 0.2.5
+Current version: 0.3
 
 
 ## Roadmap
 Next version of Tamagoshell will include somes enhancements like :
-- **Handling the PATH**: Improve the shell to use directly command name (and not full path command name)
 - **Built-in Commands**: `exit` to terminate the shell session and `env` to display the environment variables.
 
 
