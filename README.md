@@ -53,7 +53,7 @@ For more detail about the recoding of our own `_which` function please click bel
 
 
 ## Version
-Current version: 0.3
+Current version: 0.3.2
 
 
 ## Roadmap
