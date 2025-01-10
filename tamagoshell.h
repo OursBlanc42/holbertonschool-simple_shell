@@ -29,7 +29,7 @@ typedef struct built_in
 
 char *remove_newline(char *string);
 
-int execute(char *string, char *av);
+int execute(char *string, char *av, int line_number);
 
 char **separate_arg(char *string);
 
