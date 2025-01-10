@@ -46,21 +46,19 @@ int main(int argc, char **argv)
 
 	while (1)
 	{
-		if (isatty(STDIN_FILENO) == 1)
-			printf("( ・‿・) > ");
+		prompt_user();
 
 		readed = getline(&string, &buffer_size, stdin);
-		if (readed == -1)
-		{
-			if (isatty(STDIN_FILENO) == 1)
-				printf("\nヾ(• ֊ •) Good bye ! \n");
+		if (end_file(readed) == 1)
 			break;
-		}
 
 		if (isatty(STDIN_FILENO) != 1)
 			line_number++;
 
 		if (remove_newline(string) == NULL)
+			continue;
+
+		if (check_built_in(string) == 1)
 			continue;
 
 		string_copy = strdup(string);
@@ -75,5 +73,51 @@ int main(int argc, char **argv)
 		string_copy = NULL;
 	}
 	free(string);
+	return (0);
+}
+
+/**
+ * check_built_in - function for reduce number of line
+ *@string: the string for search if a function correspond
+ *Return: return 1 if success or 0 if no builtin find
+ */
+int check_built_in(char *string)
+{
+	void (*function)(void);
+
+	function = search_built_in(string);
+	if (function != NULL)
+	{
+		function();
+		return (1);
+	}
+	return (0);
+}
+
+/**
+ * prompt_user - a function for display the prompt for user
+ *Description - Check if is an terminal and display if
+ * is not a terminal
+ *Return: return nothing
+ */
+void prompt_user(void)
+{
+	if (isatty(STDIN_FILENO) == 1)
+		printf("( ・‿・) > ");
+}
+
+/**
+ * end_file - Check if EOF is readed
+ *@readed: the return of function getline
+ *Return: return 1 if end of file is receive or 0
+ */
+int end_file(ssize_t readed)
+{
+	if (readed == -1)
+	{
+		if (isatty(STDIN_FILENO) == 1)
+			printf("\nヾ(• ֊ •) Good bye ! \n");
+		return (1);
+	}
 	return (0);
 }
