@@ -18,7 +18,7 @@ void (*search_built_in(char *search))(void)
 
 	while (b_disp[ind].name_func != NULL)
 	{
-		if (search == b_disp->name_func)
+		if (strcmp(search, b_disp[ind].name_func) == 0)
 			return (b_disp[ind].function_built);
 
 		ind++;
