@@ -1,6 +1,8 @@
 #ifndef TAMAGOSHELL_H
 #define TAMAGOSHELL_H
 
+#include <sys/types.h>
+
 extern char **environ;
 
 /**
@@ -58,5 +60,9 @@ char *concat_path(const char *base, const char *addendum);
 void cleanup_error(char *exec_path, char **child_argv, char *argv);
 
 int check_built_in(char *string);
+
+void prompt_user(void);
+
+int end_file(ssize_t readed);
 
 #endif
