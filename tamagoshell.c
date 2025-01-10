@@ -14,7 +14,8 @@
 *	Call subfunction to execute the command
 *@argc: number of argument
 *@argv: array of argument
-* Return: Always 0 (waiting abort (ctrl+c) or EOF (ctrl+d)
+* Return: 0 (waiting abort (ctrl+c) or EOF (ctrl+d) 
+* or 1 if error (nb of arguments != 1)
 */
 
 int main(int argc, char **argv)
@@ -22,22 +23,19 @@ int main(int argc, char **argv)
 	char *string = NULL, *string_copy = NULL;
 	size_t buffer_size = 0;
 	ssize_t readed;
+	int line_number = 0;
 
 	if (argc != 1)
 	{
-		printf("Please no argument\n");
-		return (0);
+		fprintf(stderr, "Please no arguments\n");
+		return (1);
 	}
+	
 	while (1)
 	{
 		if (isatty(STDIN_FILENO) == 1)
 			printf("( ・‿・) > ");
 
-		if (string_copy != NULL)
-		{
-			free(string_copy);
-			string_copy = NULL;
-		}
 		/* Waiting and read the input and check if succeed */
 		readed = getline(&string, &buffer_size, stdin);
 		if (readed == -1)
@@ -46,6 +44,10 @@ int main(int argc, char **argv)
 				printf("\nヾ(• ֊ •) Good bye ! \n");
 			break;
 		}
+
+		if (isatty(STDIN_FILENO) != 1)
+			line_number++;
+
 		if (remove_newline(string) == NULL)
 			continue;
 
@@ -55,7 +57,12 @@ int main(int argc, char **argv)
 			perror("strdup");
 			continue;
 		}
-		execute(string_copy, *argv);
+
+		execute(string_copy, *argv, line_number);
+
+		free(string_copy);
+		string_copy = NULL;
+
 	}
 	free(string);
 	return (0);

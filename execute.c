@@ -15,7 +15,7 @@
 *@argv: argument with the name of shell
 *Return: return 0 if sucess or 1 if fail
 */
-int execute(char *string, char *argv)
+int execute(char *string, char *argv, int line_number)
 {
 	__pid_t child_pid;
 	char **child_argv = NULL, *executable_path = NULL;
@@ -32,7 +32,11 @@ int execute(char *string, char *argv)
 	executable_path = _which(child_argv[0]);
 	if (executable_path == NULL)
 	{
-		fprintf(stderr, "%s: %s: command not found\n", argv, child_argv[0]);
+		if (line_number > 0)
+			fprintf(stderr, "%s: %d: %s: not found\n", argv, line_number, child_argv[0]);
+		else
+			fprintf(stderr, "%s: %s: not found\n", argv, child_argv[0]);
+
 		free_darray(child_argv);
 		return (1);
 	}
