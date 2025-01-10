@@ -63,6 +63,10 @@ int main(int argc, char **argv)
 		if (remove_newline(string) == NULL)
 			continue;
 
+		
+		if (search_built_in(string) != NULL)
+			continue;
+
 		string_copy = strdup(string);
 		if (string_copy == NULL)
 		{
