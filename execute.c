@@ -4,6 +4,22 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
+
+/**
+ * print_not_found - show the specific output when function is not found
+ * @argv: name of the program
+ * @child_argv: a double array wtith different argument separate
+ * @line_number: number of the line where the problem occur
+ * Return: Nothing (void)
+ */
+void print_not_found(const char *argv, const char *child_argv, int line_number)
+{
+	if (line_number > 0)
+		fprintf(stderr, "%s: %d: %s: not found\n", argv, line_number, child_argv);
+	else
+		fprintf(stderr, "%s: %s: not found\n", argv, child_argv);
+}
+
 /**
  * execute - execute the command line
  *Description:
@@ -13,6 +29,7 @@
 *	and wait the end of execve
 *@string: string with the command line
 *@argv: argument with the name of shell
+* @line_number: number of the line where the problem occur
 *Return: return 0 if sucess or 1 if fail
 */
 int execute(char *string, char *argv, int line_number)
@@ -32,11 +49,7 @@ int execute(char *string, char *argv, int line_number)
 	executable_path = _which(child_argv[0]);
 	if (executable_path == NULL)
 	{
-		if (line_number > 0)
-			fprintf(stderr, "%s: %d: %s: not found\n", argv, line_number, child_argv[0]);
-		else
-			fprintf(stderr, "%s: %s: not found\n", argv, child_argv[0]);
-
+		print_not_found(argv, child_argv[0], line_number);
 		free_darray(child_argv);
 		return (1);
 	}

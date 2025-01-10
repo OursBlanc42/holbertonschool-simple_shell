@@ -5,6 +5,23 @@
 #include <string.h>
 
 /**
+* check_no_arg - Check if argument are passed to main
+*@argc: number of argument
+* Return: 1 if argument > 1
+* 0 otherwise
+*/
+int check_no_arg(int argc)
+{
+	if (argc != 1)
+	{
+		fprintf(stderr, "Please no arguments\n");
+		return (1);
+	}
+	return (0);
+}
+
+
+/**
 * main - Entry point of the simple shell
 * Description :
 *	Check arguments
@@ -14,10 +31,9 @@
 *	Call subfunction to execute the command
 *@argc: number of argument
 *@argv: array of argument
-* Return: 0 (waiting abort (ctrl+c) or EOF (ctrl+d) 
+* Return: 0 (waiting abort (ctrl+c) or EOF (ctrl+d)
 * or 1 if error (nb of arguments != 1)
 */
-
 int main(int argc, char **argv)
 {
 	char *string = NULL, *string_copy = NULL;
@@ -25,18 +41,14 @@ int main(int argc, char **argv)
 	ssize_t readed;
 	int line_number = 0;
 
-	if (argc != 1)
-	{
-		fprintf(stderr, "Please no arguments\n");
+	if (check_no_arg(argc) == 1)
 		return (1);
-	}
-	
+
 	while (1)
 	{
 		if (isatty(STDIN_FILENO) == 1)
 			printf("( ・‿・) > ");
 
-		/* Waiting and read the input and check if succeed */
 		readed = getline(&string, &buffer_size, stdin);
 		if (readed == -1)
 		{
@@ -59,10 +71,8 @@ int main(int argc, char **argv)
 		}
 
 		execute(string_copy, *argv, line_number);
-
 		free(string_copy);
 		string_copy = NULL;
-
 	}
 	free(string);
 	return (0);
