@@ -57,4 +57,6 @@ char *concat_path(const char *base, const char *addendum);
 
 void cleanup_error(char *exec_path, char **child_argv, char *argv);
 
+int check_built_in(char *string);
+
 #endif

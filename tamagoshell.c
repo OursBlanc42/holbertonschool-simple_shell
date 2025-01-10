@@ -63,8 +63,7 @@ int main(int argc, char **argv)
 		if (remove_newline(string) == NULL)
 			continue;
 
-		
-		if (search_built_in(string) != NULL)
+		if (handle_builtin(string) == 1)
 			continue;
 
 		string_copy = strdup(string);
@@ -79,5 +78,23 @@ int main(int argc, char **argv)
 		string_copy = NULL;
 	}
 	free(string);
+	return (0);
+}
+
+/**
+ * handle_builtin - function for reduce number of line
+ *@string: the string for search if a function correspond
+ *Return: return 1 if success or 0 if no builtin find
+ */
+int check_built_in(char *string)
+{
+	void (*function)(void);
+
+	function = search_built_in(string);
+	if (function != NULL)
+	{
+		function();
+		return (1);
+	}
 	return (0);
 }
