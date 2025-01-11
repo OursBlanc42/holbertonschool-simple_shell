@@ -26,7 +26,7 @@ struct list_s *next;
 typedef struct built_in
 {
 	char *name_func;
-	void (*function_built)(void);
+    void (*function_built)(char *);
 } search_built;
 
 char *remove_newline(char *string);
@@ -37,11 +37,11 @@ char **separate_arg(char *string);
 
 void free_darray(char **darray);
 
-void display_env(void);
+void built_env(char *string);
 
-void built_exit(void);
+void built_exit(char *string);
 
-void (*search_built_in(char *search))(void);
+void (*search_built_in(char *search))(char *);
 
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 

@@ -7,10 +7,10 @@
  *@search: the string for search
  *Return: return a function pointer
  */
-void (*search_built_in(char *search))(void)
+void (*search_built_in(char *search))(char *)
 {
 	search_built b_disp[] = {
-		{"env", display_env},
+		{"env", built_env},
 		{"exit", built_exit},
 		{NULL, NULL},
 		};
