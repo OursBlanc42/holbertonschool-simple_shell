@@ -1,7 +1,7 @@
 .\" Manpage for tamagoshell.
 .\" Contact auhtors (see COPYRIGHT) to correct errors or typos.
 
-.TH man 1 "10 Jan 2025" "1.0" "Tamagoshell"
+.TH man 1 "15 Jan 2025" "1.1" "Tamagoshell"
 .SH NAME
 .B Tamagoshell
 - a simple command language interpreter

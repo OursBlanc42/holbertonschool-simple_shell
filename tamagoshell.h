@@ -26,7 +26,7 @@ struct list_s *next;
 typedef struct built_in
 {
 	char *name_func;
-    void (*function_built)(char *);
+	void (*function_built)(char *);
 } search_built;
 
 char *remove_newline(char *string);
