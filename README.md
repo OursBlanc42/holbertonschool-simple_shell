@@ -14,7 +14,64 @@ Tamago-shell in action :
 
 
 ## Features
-Tamago-shell is a simple shell with an added feature: it displays ASCII emoji heads when you type commands, inspired by the iconic Japanese electronic game tamagotchi.
+Tamago-shell is a simple shell with an added feature: it displays ASCII emoji heads when you type commands, inspired by the iconic Japanese electronic game Tamagotchi.
+
+### Key Features:
+- Executes commands interactively and non-interactively.
+- Parses user input and tokenizes it into commands and arguments.
+- Searches for executable programs.
+- Handles basic errors, such as "command not found."
+- Ensures no memory leaks.
+
+## Requirements
+Because it's a school project, we have some limitations :
+- *OS* : should work on Ubuntu 20.04 LTS
+- *Compiler:* gcc with flags -Wall -Werror -Wextra -pedantic -std=gnu89
+- *Style:* The code should be OK with the linter Betty
+- *Output:* Matches /bin/sh exactly except for the program name in error messages.
+- *Memory:* No memory leaks are allowed.
+- *File Structure:* No more than 5 functions per file, and all headers must have include guards.
+- *Allowed Functions and System Calls*:
+    - *Standard Library Functions*:
+        - All functions from `string.h`
+    - **System Calls**:
+        - `access`
+        - `chdir`
+        - `close`
+        - `closedir`
+        - `execve`
+        - `exit`
+        - `_exit`
+        - `fflush`
+        - `fork`
+        - `free`
+        - `getcwd`
+        - `getline`
+        - `getpid`
+        - `isatty`
+        - `kill`
+        - `malloc`
+        - `open`
+        - `opendir`
+        - `perror`
+        - `printf`
+        - `fprintf`
+        - `vfprintf`
+        - `sprintf`
+        - `putchar`
+        - `read`
+        - `readdir`
+        - `signal`
+        - `stat`
+        - `lstat`
+        - `fstat`
+        - `strtok`
+        - `wait`
+        - `waitpid`
+        - `wait3`
+        - `wait4`
+        - `write`
+
 
 
 ## Getting Started
