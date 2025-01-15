@@ -110,7 +110,7 @@ For more detail about the recoding of our own `_which` function please click bel
 
 
 ## Version
-Current version: 1.0
+Current version: 1.1
 
 
 ## Roadmap
