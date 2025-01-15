@@ -83,12 +83,12 @@ int main(int argc, char **argv)
  */
 int check_built_in(char *string)
 {
-	void (*function)(void);
+	void (*function)(char *);
 
 	function = search_built_in(string);
 	if (function != NULL)
 	{
-		function();
+		function(string);
 		return (1);
 	}
 	return (0);
